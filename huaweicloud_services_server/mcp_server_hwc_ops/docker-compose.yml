@@ -1,0 +1,16 @@
+services:
+  hwc-ops-mcp:
+    build:
+      context: ../../
+      dockerfile: huaweicloud_services_server/mcp_server_hwc_ops/Dockerfile
+    image: mcp-server-hwc-ops:dev
+    container_name: hwc-ops-mcp
+    ports:
+      - "8888:8080"
+    environment:
+      - HUAWEI_ACCESS_KEY=${HUAWEI_ACCESS_KEY}
+      - HUAWEI_SECRET_KEY=${HUAWEI_SECRET_KEY}
+      - HUAWEI_PROJECT_ID=${HUAWEI_PROJECT_ID:-}
+      - MCP_SERVER_MODE=http
+      - MCP_SERVER_PORT=8080
+    restart: unless-stopped
