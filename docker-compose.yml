@@ -28,10 +28,14 @@ services:
     restart: unless-stopped
 
   # MCP de Terraform (registry lookups: módulos/providers/versiones).
-  # Imagen Go del SWR de Huawei. Streamable HTTP en /mcp.
-  # Si no tenés acceso al SWR, mirá terraform-mcp/README.md alternativas.
+  # Build local desde el Dockerfile del upstream hashicorp/terraform-mcp-server.
+  # Streamable HTTP en /mcp. Sin TFE token → tools de registry público (módulos,
+  # providers, versiones); las de registry privado quedan off.
   terraform-mcp:
-    image: swr.la-south-2.myhuaweicloud.com/imagenes-varias/terraform-mcp-server:dev
+    build:
+      context: ./terraform-mcp
+      target: dev
+    image: terraform-mcp-server:dev
     command: ["streamable-http", "--transport-host", "0.0.0.0", "--transport-port", "8080"]
     ports:
       - "8088:8080"
