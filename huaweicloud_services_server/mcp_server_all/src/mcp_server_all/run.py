@@ -57,7 +57,7 @@ logger = get_logger(__name__)
 configure_logging("INFO")
 
 # Raíz del catálogo de servicios.
-_SERVICES_ROOT = Path(__file__).resolve().parents[4]  # huaweicloud_services_server/
+_SERVICES_ROOT = Path(__file__).resolve().parents[3]  # huaweicloud_services_server/
 _NS_SEP = "__"
 
 
